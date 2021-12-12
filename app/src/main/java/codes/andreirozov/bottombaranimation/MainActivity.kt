@@ -40,13 +40,27 @@ fun BottomBarAnimationApp() {
     // State of bottomBar, set state to false, if current page route is "car_details"
     val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
 
+    // State of topBar, set state to false, if current page route is "car_details"
+    val topBarState = rememberSaveable { (mutableStateOf(true)) }
+
     BottomBarAnimationTheme {
         val navController = rememberNavController()
-        Scaffold(
+        // IMPORTANT, Scaffold from Accompanist, initialized in build.gradle.
+        // We use Scaffold from Accompanist, because we need full control of paddings, for example
+        // in default Scaffold from Compose we can't disable padding for content from top if we
+        // have TopAppBar. In our case it's required because we have animation for TopAppBar,
+        // content should be under TopAppBar and we manually control padding for each pages.
+        com.google.accompanist.insets.ui.Scaffold(
             bottomBar = {
                 BottomBar(
                     navController = navController,
                     bottomBarState = bottomBarState
+                )
+            },
+            topBar = {
+                TopBar(
+                    navController = navController,
+                    topBarState = topBarState
                 )
             },
             content = {
@@ -55,29 +69,33 @@ fun BottomBarAnimationApp() {
                     startDestination = NavigationItem.Cars.route,
                 ) {
                     composable(NavigationItem.Cars.route) {
-                        // show BottomBar
+                        // show BottomBar and TopBar
                         bottomBarState.value = true
+                        topBarState.value = true
                         CarsScreen(
                             navController = navController,
                         )
                     }
                     composable(NavigationItem.Bikes.route) {
-                        // show BottomBar
+                        // show BottomBar and TopBar
                         bottomBarState.value = true
+                        topBarState.value = true
                         BikesScreen(
                             navController = navController
                         )
                     }
                     composable(NavigationItem.Settings.route) {
-                        // show BottomBar
+                        // show BottomBar and TopBar
                         bottomBarState.value = true
+                        topBarState.value = true
                         SettingsScreen(
                             navController = navController,
                         )
                     }
                     composable(NavigationItem.CarDetails.route) {
-                        // hide BottomBar
+                        // hide BottomBar and TopBar
                         bottomBarState.value = false
+                        topBarState.value = false
                         CarDetailsScreen(
                             navController = navController,
                         )
@@ -129,6 +147,30 @@ fun BottomBar(navController: NavController, bottomBarState: MutableState<Boolean
                     )
                 }
             }
+        }
+    )
+}
+
+@ExperimentalAnimationApi
+@Composable
+fun TopBar(navController: NavController, topBarState: MutableState<Boolean>) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val title: String = when (navBackStackEntry?.destination?.route ?: "cars") {
+        "cars" -> "Cars"
+        "bikes" -> "Bikes"
+        "settings" -> "Settings"
+        "car_details" -> "Cars"
+        else -> "Notes"
+    }
+
+    AnimatedVisibility(
+        visible = topBarState.value,
+        enter = slideInVertically(initialOffsetY = { -it }),
+        exit = slideOutVertically(targetOffsetY = { -it }),
+        content = {
+            TopAppBar(
+                title = { Text(text = title) },
+            )
         }
     )
 }

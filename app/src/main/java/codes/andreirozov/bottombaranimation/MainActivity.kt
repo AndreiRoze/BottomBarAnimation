@@ -56,28 +56,36 @@ fun BottomBarAnimationApp() {
                 ) {
                     composable(NavigationItem.Cars.route) {
                         // show BottomBar
-                        bottomBarState.value = true
+                        LaunchedEffect(Unit) {
+                            bottomBarState.value = true
+                        }
                         CarsScreen(
                             navController = navController,
                         )
                     }
                     composable(NavigationItem.Bikes.route) {
                         // show BottomBar
-                        bottomBarState.value = true
+                        LaunchedEffect(Unit) {
+                            bottomBarState.value = true
+                        }
                         BikesScreen(
                             navController = navController
                         )
                     }
                     composable(NavigationItem.Settings.route) {
                         // show BottomBar
-                        bottomBarState.value = true
+                        LaunchedEffect(Unit) {
+                            bottomBarState.value = true
+                        }
                         SettingsScreen(
                             navController = navController,
                         )
                     }
                     composable(NavigationItem.CarDetails.route) {
                         // hide BottomBar
-                        bottomBarState.value = false
+                        LaunchedEffect(Unit) {
+                            bottomBarState.value = false
+                        }
                         CarDetailsScreen(
                             navController = navController,
                         )

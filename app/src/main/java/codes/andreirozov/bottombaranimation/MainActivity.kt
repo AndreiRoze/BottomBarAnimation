@@ -70,32 +70,40 @@ fun BottomBarAnimationApp() {
                 ) {
                     composable(NavigationItem.Cars.route) {
                         // show BottomBar and TopBar
-                        bottomBarState.value = true
-                        topBarState.value = true
+                        LaunchedEffect(Unit) {
+                            bottomBarState.value = true
+                            topBarState.value = true
+                        }
                         CarsScreen(
                             navController = navController,
                         )
                     }
                     composable(NavigationItem.Bikes.route) {
                         // show BottomBar and TopBar
-                        bottomBarState.value = true
-                        topBarState.value = true
+                        LaunchedEffect(Unit) {
+                            bottomBarState.value = true
+                            topBarState.value = true
+                        }
                         BikesScreen(
                             navController = navController
                         )
                     }
                     composable(NavigationItem.Settings.route) {
                         // show BottomBar and TopBar
-                        bottomBarState.value = true
-                        topBarState.value = true
+                        LaunchedEffect(Unit) {
+                            bottomBarState.value = true
+                            topBarState.value = true
+                        }
                         SettingsScreen(
                             navController = navController,
                         )
                     }
                     composable(NavigationItem.CarDetails.route) {
                         // hide BottomBar and TopBar
-                        bottomBarState.value = false
-                        topBarState.value = false
+                        LaunchedEffect(Unit) {
+                            bottomBarState.value = false
+                            topBarState.value = false
+                        }
                         CarDetailsScreen(
                             navController = navController,
                         )

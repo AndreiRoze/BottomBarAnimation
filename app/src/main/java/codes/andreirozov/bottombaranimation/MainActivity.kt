@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.material.*
@@ -23,7 +22,6 @@ import codes.andreirozov.bottombaranimation.screens.CarsScreen
 import codes.andreirozov.bottombaranimation.screens.SettingsScreen
 import codes.andreirozov.bottombaranimation.ui.theme.BottomBarAnimationTheme
 
-@ExperimentalAnimationApi
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +31,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun BottomBarAnimationApp() {
 
@@ -97,7 +94,6 @@ fun BottomBarAnimationApp() {
 
 }
 
-@ExperimentalAnimationApi
 @Composable
 fun BottomBar(navController: NavController, bottomBarState: MutableState<Boolean>) {
     val items = listOf(

@@ -39,6 +39,30 @@ fun BottomBarAnimationApp() {
 
     BottomBarAnimationTheme {
         val navController = rememberNavController()
+
+        // Subscribe to navBackStackEntry, required to get current route
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+        // Control TopBar and BottomBar
+        when (navBackStackEntry?.destination?.route) {
+            "cars" -> {
+                // Show BottomBar
+                bottomBarState.value = true
+            }
+            "bikes" -> {
+                // Show BottomBar
+                bottomBarState.value = true
+            }
+            "settings" -> {
+                // Show BottomBar
+                bottomBarState.value = true
+            }
+            "car_details" -> {
+                // Hide BottomBar
+                bottomBarState.value = false
+            }
+        }
+
         Scaffold(
             bottomBar = {
                 BottomBar(
@@ -52,37 +76,21 @@ fun BottomBarAnimationApp() {
                     startDestination = NavigationItem.Cars.route,
                 ) {
                     composable(NavigationItem.Cars.route) {
-                        // show BottomBar
-                        LaunchedEffect(Unit) {
-                            bottomBarState.value = true
-                        }
                         CarsScreen(
                             navController = navController,
                         )
                     }
                     composable(NavigationItem.Bikes.route) {
-                        // show BottomBar
-                        LaunchedEffect(Unit) {
-                            bottomBarState.value = true
-                        }
                         BikesScreen(
                             navController = navController
                         )
                     }
                     composable(NavigationItem.Settings.route) {
-                        // show BottomBar
-                        LaunchedEffect(Unit) {
-                            bottomBarState.value = true
-                        }
                         SettingsScreen(
                             navController = navController,
                         )
                     }
                     composable(NavigationItem.CarDetails.route) {
-                        // hide BottomBar
-                        LaunchedEffect(Unit) {
-                            bottomBarState.value = false
-                        }
                         CarDetailsScreen(
                             navController = navController,
                         )
